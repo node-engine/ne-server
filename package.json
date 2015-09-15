@@ -19,5 +19,16 @@
   "bugs": {
     "url": "https://github.com/node-engine/node-engine/issues"
   },
-  "homepage": "https://github.com/node-engine/node-engine#readme"
+  "homepage": "https://github.com/node-engine/node-engine#readme",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "cors": "^2.7.1",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.7",
+    "path": "^0.12.7",
+    "react": "^0.13.3",
+    "react-engine": "^2.2.0",
+    "react-router": "^0.13.3"
+  }
 }
