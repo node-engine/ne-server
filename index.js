@@ -33,6 +33,8 @@ nodeEngine.reactViews = function(server){
     // finally, set the custom view
     server.set('view', require('react-engine/lib/expressView'));
 
+    return server
+
 };
 
 nodeEngine.serverSetup = function(server, data){
@@ -98,9 +100,11 @@ nodeEngine.serverSetup = function(server, data){
         debug('Listening on ' + bind);
     }
 
+    return server
+
 };
 
-nodeEngine.mongo = function(server, developmentMongoUrl, currentEnv){
+nodeEngine.mongo = function(server){
 
     // This is used for mongodb and the api stuff cross origin resource sharing
     server.use(cors());
@@ -111,13 +115,7 @@ nodeEngine.mongo = function(server, developmentMongoUrl, currentEnv){
     server.use(bodyParser.raw());
     server.use(bodyParser.text());
 
-    if ('development' == currentEnv) {
-        mongoose.connect(developmentMongoUrl);
-    }
-
-    if ('production' == currentEnv) {
-        mongoose.connect(process.env.MONGO_URL);
-    }
+    return server
 };
 
 nodeEngine.static = function (server, cacheTime){
@@ -126,6 +124,8 @@ nodeEngine.static = function (server, cacheTime){
     server.use(express.static(path.join(__dirname, '/static'),{ maxAge: cacheTime }));
     server.use(express.static(path.join(__dirname, '/universal/css'),{ maxAge: cacheTime }));
     server.use(express.static(path.join(__dirname, '/universal/js'),{ maxAge: cacheTime }));
+
+    return server
 
 };
 
