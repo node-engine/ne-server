@@ -1,0 +1,23 @@
+{
+  "name": "node-engine",
+  "version": "1.0.0",
+  "description": "A simple way to create a NodeJS website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node-engine/node-engine.git"
+  },
+  "keywords": [
+    "nodeJS",
+    "ExpressJS"
+  ],
+  "author": "Bernard Hamann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/node-engine/node-engine/issues"
+  },
+  "homepage": "https://github.com/node-engine/node-engine#readme"
+}
