@@ -38,7 +38,7 @@ nodeEngine.reactViews = function(server){
 nodeEngine.serverSetup = function(server, data){
 
     // Get port from environment and store in Express.
-    var port = normalizePort(process.env.PORT || data.env.PORT || '3000');
+    var port = normalizePort(process.env.PORT || data.PORT || '3000');
     server.set('port', port);
 
     //Normalize a port into a number, string, or false.
