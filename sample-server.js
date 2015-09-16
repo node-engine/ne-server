@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 var nodeEngine = require('node-engine-core');
-var data = require('../pm2.json');
+var configDevelopment = require('../config.json');
+var configProduction = require('../pm2.json');
 
 var path = require('path');
 var express = require('express');
@@ -12,17 +13,33 @@ var express = require('express');
 
 var server = nodeEngine.init();
 
+
 //////////////////////////
 // Set the Environment  //
 //////////////////////////
 
 var currentEnv = process.env.NODE_ENV || 'development';
 
+if ('development' == currentEnv) {
+    server.locals.config = configDevelopment.env;
+    console.log('Development CONFIG');
+    console.log(server.locals.config);
+}
+
+if ('production' == currentEnv) {
+    server.locals.config = configProduction.env;
+    console.log('Production CONFIG');
+    console.log(server.locals.config);
+
+}
+
+var config = server.locals.config;
+
 ///////////////////
 //    MongoDB    //
 ///////////////////
 
-var developmentMongoUrl = data.env.MONGO_URL;
+var developmentMongoUrl = config.MONGO_URL;
 nodeEngine.mongo(server, developmentMongoUrl, currentEnv);
 // In production it wil use the MONGO_URL from the environment variables
 
@@ -70,5 +87,4 @@ server.use('/', require('./server/redirect'));
 /////////////////////////
 
 
-nodeEngine.serverSetup(server, data);
-
+nodeEngine.serverSetup(server, config);
