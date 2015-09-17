@@ -2,9 +2,6 @@
 
 A simple Tool to setup the basic foundation of a NodeJS app FAST
 
-See the sample server file to see how easy it is
-
-https://github.com/node-engine/ne-server/blob/master/sample-server.js
 
 ## Sample Development Config File
 
@@ -29,6 +26,11 @@ This is a sample config.json file
 ``` 
 
 ## Sample Server Setup File
+
+See the sample server file to see how easy it is
+
+https://github.com/node-engine/ne-server/blob/master/sample-server.js
+
 
 ```js
 
