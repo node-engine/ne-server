@@ -1,25 +1,25 @@
 {
-  "name": "node-engine-core",
-  "version": "1.1.0",
-  "description": "A simple way to create a NodeJS website",
+  "name": "ne-server",
+  "version": "1.1.1",
+  "description": "A simple Tool to setup the basic foundation of a NodeJS app FAST",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/node-engine/node-engine.git"
+    "url": "git+https://github.com/node-engine/ne-server.git"
   },
   "keywords": [
-    "nodeJS",
+    "NodeJS",
     "ExpressJS"
   ],
   "author": "Bernard Hamann",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/node-engine/node-engine/issues"
+    "url": "https://github.com/node-engine/ne-server/issues"
   },
-  "homepage": "https://github.com/node-engine/node-engine#readme",
+  "homepage": "https://github.com/node-engine/ne-server#readme",
   "dependencies": {
     "body-parser": "^1.13.3",
     "cors": "^2.7.1",

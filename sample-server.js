@@ -3,13 +3,12 @@
 var nodeEngine = require('node-engine-core');
 var configDevelopment = require('../config.json');
 var configProduction = require('../pm2.json');
-
 var path = require('path');
 var express = require('express');
 
 
 ////////////////////////
-// Create the Server  //
+// Create the Server
 ////////////////////////
 
 
@@ -21,18 +20,14 @@ var server = nodeEngine.init(currentEnv, configDevelopment, configProduction);
 var config = server.locals.config;
 
 
-///////////////////
-// React Engine  //
-///////////////////
-
-// For using react as the view engine for express
-// This is not really needed but can be useful sometimes
-nodeEngine.reactViews(server);
+/////////////////////////
+// View Engine Setup
+/////////////////////////
 
 
-////////////////////
-// Static Assets  //
-////////////////////
+//////////////////////
+// Static Assets
+//////////////////////
 
 var cacheTime = 100;
 //nodeEngine.static(server, cacheTime);
@@ -43,9 +38,9 @@ server.use(express.static(path.join(__dirname, '/universal/css'),{ maxAge: cache
 server.use(express.static(path.join(__dirname, '/universal/js'),{ maxAge: cacheTime }));
 
 
-/////////////
-// Routes  //
-/////////////
+///////////////
+// Routes
+///////////////
 
 // Setup the routes for the API
 server.use('/api/people', require('./restapi/people'));
