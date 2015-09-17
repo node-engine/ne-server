@@ -4,9 +4,9 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var cors = require('cors');
 
-var nodeEngine = {};
+var neServer = {};
 
-nodeEngine.init = function(currentEnv, configDevelopment, configProduction){
+neServer.init = function(currentEnv, configDevelopment, configProduction){
 
     var server = express();
 
@@ -98,4 +98,4 @@ nodeEngine.init = function(currentEnv, configDevelopment, configProduction){
 };
 
 
-module.exports = nodeEngine;
+module.exports = neServer;
