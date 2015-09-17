@@ -1,4 +1,4 @@
-# Node Engine 
+# ne-server (Node Engine - Server)
 
 A simple Tool to setup the basic foundation of a NodeJS app FAST
 
