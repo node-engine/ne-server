@@ -21,7 +21,7 @@ This is a sample config.json file
   "env": {
     "NODE_ENV"         : "development",
     "PORT"             : 3001,
-    "MONGO_URL"        : "mongodb://root:qwerty@mongo.yebolocal.me:27004/testrep",
+    "MONGO_URL"        : "mongodb://username:password@domain.com:27001/databasename",
     "ROOTURL"          : "http://localhost:3001"
   }
 }
