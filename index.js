@@ -8,37 +8,35 @@ var cors = require('cors');
 
 var nodeEngine = {};
 
-nodeEngine.init = function(){
-    return express()
-};
+nodeEngine.init = function(currentEnv, configDevelopment, configProduction){
 
-nodeEngine.reactViews = function(server){
+    var server = express();
 
-    // create an engine instance
-    var engine = ReactEngine.server.create({
-        reactRoutes:'./routes.jsx'
-    });
+    if ('development' == currentEnv) {
+        server.locals.config = configDevelopment.env;
+        var config = server.locals.config;
+        console.log('Using Development CONFIG');
+        mongoose.connect(process.env.MONGO_URL || server.locals.config.MONGO_URL);
+    }
 
-    // view engine setup react engine
-    server.engine('.js', engine);
+    if ('production' == currentEnv) {
+        server.locals.config = configProduction.env;
+        var config = server.locals.config;
+        console.log('Using Production CONFIG');
+        mongoose.connect(process.env.MONGO_URL || server.locals.config.MONGO_URL);
+    }
 
-    // set the view directory
-    server.set('views', path.join(__dirname, '/app/universal/handlers'));
+    // This is used for mongodb and the api stuff cross origin resource sharing
+    server.use(cors());
 
-    // set jsx or js as the view engine
-    // (without this you would need to supply the extension to res.render())
-    // ex: res.render('index.jsx') instead of just res.render('index').
-    server.set('view engine', 'js');
-
-    // finally, set the custom view
-    server.set('view', require('react-engine/lib/expressView'));
-
-};
-
-nodeEngine.serverSetup = function(server, data){
+    // for the rest API post, put requests
+    server.use(bodyParser.urlencoded({ extended: false }));
+    server.use(bodyParser.json());
+    server.use(bodyParser.raw());
+    server.use(bodyParser.text());
 
     // Get port from environment and store in Express.
-    var port = normalizePort(process.env.PORT || data.PORT || '3000');
+    var port = normalizePort(process.env.PORT || config.PORT || '3000');
     server.set('port', port);
 
     //Normalize a port into a number, string, or false.
@@ -52,7 +50,7 @@ nodeEngine.serverSetup = function(server, data){
 
         if (port >= 0) {
             // port number
-            console.log("App is running on Port: " + port);
+            console.log("Server is running on Port: " + port);
             return port;
         }
 
@@ -98,35 +96,31 @@ nodeEngine.serverSetup = function(server, data){
         debug('Listening on ' + bind);
     }
 
+    return server
 };
 
-nodeEngine.mongo = function(server, developmentMongoUrl, currentEnv){
+nodeEngine.reactViews = function(server){
 
-    // This is used for mongodb and the api stuff cross origin resource sharing
-    server.use(cors());
+    // create an engine instance
+    var engine = ReactEngine.server.create({
+        reactRoutes:'./routes.jsx'
+    });
 
-    // for the rest API post, put requests
-    server.use(bodyParser.urlencoded({ extended: false }));
-    server.use(bodyParser.json());
-    server.use(bodyParser.raw());
-    server.use(bodyParser.text());
+    // view engine setup react engine
+    server.engine('.js', engine);
 
-    if ('development' == currentEnv) {
-        mongoose.connect(developmentMongoUrl);
-    }
+    // set the view directory
+    server.set('views', path.join(__dirname, '/app/universal/handlers'));
 
-    if ('production' == currentEnv) {
-        mongoose.connect(process.env.MONGO_URL);
-    }
-};
+    // set jsx or js as the view engine
+    // (without this you would need to supply the extension to res.render())
+    // ex: res.render('index.jsx') instead of just res.render('index').
+    server.set('view engine', 'js');
 
-nodeEngine.static = function (server, cacheTime){
-
-    server.use(express.static('media',{ maxAge: cacheTime }));
-    server.use(express.static(path.join(__dirname, '/static'),{ maxAge: cacheTime }));
-    server.use(express.static(path.join(__dirname, '/universal/css'),{ maxAge: cacheTime }));
-    server.use(express.static(path.join(__dirname, '/universal/js'),{ maxAge: cacheTime }));
+    // finally, set the custom view
+    server.set('view', require('react-engine/lib/expressView'));
 
 };
+
 
 module.exports = nodeEngine;

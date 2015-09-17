@@ -7,41 +7,19 @@ var configProduction = require('../pm2.json');
 var path = require('path');
 var express = require('express');
 
+
 ////////////////////////
 // Create the Server  //
 ////////////////////////
 
-var server = nodeEngine.init();
-
-
-//////////////////////////
-// Set the Environment  //
-//////////////////////////
 
 var currentEnv = process.env.NODE_ENV || 'development';
+console.log("Current Environment: " + currentEnv);
 
-if ('development' == currentEnv) {
-    server.locals.config = configDevelopment.env;
-    console.log('Development CONFIG');
-    console.log(server.locals.config);
-}
-
-if ('production' == currentEnv) {
-    server.locals.config = configProduction.env;
-    console.log('Production CONFIG');
-    console.log(server.locals.config);
-
-}
+var server = nodeEngine.init(currentEnv, configDevelopment, configProduction);
 
 var config = server.locals.config;
 
-///////////////////
-//    MongoDB    //
-///////////////////
-
-var developmentMongoUrl = config.MONGO_URL;
-nodeEngine.mongo(server, developmentMongoUrl, currentEnv);
-// In production it wil use the MONGO_URL from the environment variables
 
 ///////////////////
 // React Engine  //
@@ -80,11 +58,3 @@ server.use('/api/emails', require('./restapi/emails'));
 
 // Setup the redirect to the react router
 server.use('/', require('./server/redirect'));
-
-
-/////////////////////////
-// Server Boilerplate  //
-/////////////////////////
-
-
-nodeEngine.serverSetup(server, config);
