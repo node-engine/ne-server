@@ -36,7 +36,7 @@ https://github.com/node-engine/ne-server/blob/master/sample-server.js
 
 #!/usr/bin/env node
 
-var nodeEngine = require('node-engine-core');
+var neServer = require('ne-server');
 var configDevelopment = require('../config.json');
 var configProduction = require('../pm2.json');
 var path = require('path');
@@ -51,7 +51,7 @@ var express = require('express');
 var currentEnv = process.env.NODE_ENV || 'development';
 console.log("Current Environment: " + currentEnv);
 
-var server = nodeEngine.init(currentEnv, configDevelopment, configProduction);
+var server = neServer.init(currentEnv, configDevelopment, configProduction);
 
 var config = server.locals.config;
 
