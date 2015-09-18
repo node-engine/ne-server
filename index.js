@@ -6,23 +6,13 @@ var cors = require('cors');
 
 var neServer = {};
 
-neServer.init = function(currentEnv, configDevelopment, configProduction){
+neServer.init = function(config){
 
     var server = express();
 
-    if ('development' == currentEnv) {
-        server.locals.config = configDevelopment.env;
-        var config = server.locals.config;
-        console.log('Using Development CONFIG');
-        mongoose.connect(process.env.MONGO_URL || server.locals.config.MONGO_URL);
-    }
+    server.locals.config = config;
 
-    if ('production' == currentEnv) {
-        server.locals.config = configProduction.env;
-        var config = server.locals.config;
-        console.log('Using Production CONFIG');
-        mongoose.connect(process.env.MONGO_URL || server.locals.config.MONGO_URL);
-    }
+    mongoose.connect(process.env.MONGO_URL || config.env.MONGO_URL);
 
     // This is used for mongodb and the api stuff cross origin resource sharing
     server.use(cors());
@@ -34,7 +24,7 @@ neServer.init = function(currentEnv, configDevelopment, configProduction){
     server.use(bodyParser.text());
 
     // Get port from environment and store in Express.
-    var port = normalizePort(process.env.PORT || config.PORT || '3000');
+    var port = normalizePort(process.env.PORT || config.env.PORT || '3000');
     server.set('port', port);
 
     //Normalize a port into a number, string, or false.
