@@ -27,7 +27,7 @@ if ('development' == currentEnv) {
 }
 
 if ('production' == currentEnv) {
-    var config = configProduction;
+    var config = configProduction.env;
     console.log('Using Production CONFIG');
 }
 
@@ -96,18 +96,18 @@ neRender.serverRender(server, appConfig, routes);
 ```json
 
 {
-  "env": {
     "NODE_ENV"         : "development",
     "ROOTURL"          : "http://localhost:3001",
     "PORT"             : 3001,
     "MONGO_URL"        : "mongodb://username:password@domain.com:27000/databasename",
     "SENDGRID_APIKEY"  : "xxx",
-  }
 }
 
 ```
 
 ## Sample configProduction File
+
+Using PM2 config file
 
 ```json
 
