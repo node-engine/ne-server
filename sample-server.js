@@ -1,20 +1,11 @@
 #!/usr/bin/env node
 
-var express = require('express');
-var path = require('path');
-
-var nodeEngineServer = require('ne-server');
-var renderServer = require('ne-render-server');
-
-var configDevelopment = require('../config/config.json');
-var configProduction = require('../config/pm2.json');
-var globals = require('../config/globals.json');
-var routes = require ('./universal/routes');
-
-
 ////////////////////////
 // Config
 ////////////////////////
+
+var configDevelopment = require('../config/config.json');
+var configProduction = require('../config/pm2.json');
 
 var currentEnv = process.env.NODE_ENV || 'development';
 console.log("Current Environment: " + currentEnv);
@@ -34,58 +25,65 @@ if ('production' == currentEnv) {
 // Create the Server
 ////////////////////////
 
-var server = nodeEngineServer.init(config);
+var nodeEngineServer = require('ne-server');
 
-server.locals.globals = globals;
+var server = nodeEngineServer.init(config);
 
 
 /////////////////////////
 // View Engine Setup
 /////////////////////////
 
-// Optional
+// Optional not necessary
+
+
+
 
 
 //////////////////////
 // Static Assets
 //////////////////////
 
+
+var express = require('express');
+
+var path = require('path');
+
 var cacheTime = 100;
-//nodeEngine.static(server, cacheTime);
+// future feature
+// nodeEngine.static(server, cacheTime);
+// send the __dirname to the function
 
 server.use(express.static('media',{ maxAge: cacheTime }));
 server.use(express.static(path.join(__dirname, '/static'),{ maxAge: cacheTime }));
 server.use(express.static(path.join(__dirname, '/universal/css'),{ maxAge: cacheTime }));
 server.use(express.static(path.join(__dirname, '/universal/js'),{ maxAge: cacheTime }));
 
-
 ///////////////
 // REST API
 ///////////////
 
-// People Rest API
-server.use('/api/people', require('./api/people'));
+var mongoRest = require('ne-mongo-rest');
 
-// Page Rest API
-server.use('/api/page', require('./api/page'));
-
-// Emails Rest API
-server.use('/api/emails', require('./api/emails'));
+var dirName = __dirname;
+var apiPath = "/api";
+mongoRest.server(server, dirName, apiPath);
 
 
 //////////////////////////////
 // Express Test
 //////////////////////////////
 
-// Server Rendering with React Router
 server.use('/express', require('./server/express'));
 
 
+
 ////////////////////////////////////////////////////////////
-// Rendering React-Router with Pre-Render Data
+// Rendering React with React-Router on the server with Pre-Render Data from API's
 ////////////////////////////////////////////////////////////
 
-// Server Rendering with React Router but after getting data from a api request.
-// This version stores the data request in the page object for that path
-var pageAPIPath = "http://localhost:3001/api/page?f1=path&v1=";
-renderServer(server, routes, pageAPIPath, globals);
+var neRender = require('ne-render');
+var appConfig = require ('./universal/appConfig');
+var routes = require ('./universal/routes');
+
+neRender.serverRender(server, appConfig, routes);
