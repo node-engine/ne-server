@@ -10,21 +10,20 @@ neServer.init = function(config){
 
     var server = express();
 
-    server.locals.config = config;
-
-    mongoose.connect(process.env.MONGO_URL || config.env.MONGO_URL);
+    mongoose.connect(process.env.MONGO_URL || config.MONGO_URL);
 
     // This is used for mongodb and the api stuff cross origin resource sharing
     server.use(cors());
 
     // for the rest API post, put requests
-    server.use(bodyParser.urlencoded({ extended: false }));
     server.use(bodyParser.json());
     server.use(bodyParser.raw());
+    server.use(bodyParser.urlencoded({ extended: false }));
     server.use(bodyParser.text());
 
+
     // Get port from environment and store in Express.
-    var port = normalizePort(process.env.PORT || config.env.PORT || '3000');
+    var port = normalizePort(process.env.PORT || config.PORT || '3000');
     server.set('port', port);
 
     //Normalize a port into a number, string, or false.
