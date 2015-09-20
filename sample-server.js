@@ -16,7 +16,7 @@ if ('development' == currentEnv) {
 }
 
 if ('production' == currentEnv) {
-    var config = configProduction;
+    var config = configProduction.env;
     console.log('Using Production CONFIG');
 }
 
