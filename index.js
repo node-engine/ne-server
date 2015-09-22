@@ -1,29 +1,41 @@
 var express = require('express');
 var debug = require('debug')('express:server');
-var mongoose = require('mongoose');
-var bodyParser = require("body-parser");
-var cors = require('cors');
 
 var neServer = {};
 
-neServer.init = function(config){
+neServer.init = function(PORT){
+
+    var currentEnv = process.env.NODE_ENV || 'development';
+    console.log("Current Environment: " + currentEnv);
 
     var server = express();
 
-    mongoose.connect(process.env.MONGO_URL || config.MONGO_URL);
 
-    // This is used for mongodb and the api stuff cross origin resource sharing
-    server.use(cors());
+    if (process.env.PORT) {
+        console.log("Using port from process.env.PORT");
+        var port = normalizePort(process.env.PORT);
+    }
 
-    // for the rest API post, put requests
-    server.use(bodyParser.json());
-    server.use(bodyParser.raw());
-    server.use(bodyParser.urlencoded({ extended: false }));
-    server.use(bodyParser.text());
+    else if (!process.env.PORT){
+        console.log("No process.env.PORT found");
+        console.log("Looking for a PORT");
 
 
-    // Get port from environment and store in Express.
-    var port = normalizePort(process.env.PORT || config.PORT || '3000');
+
+        if (PORT) {
+            console.log("Found PORT");
+            console.log("Using port from PORT");
+            var port = normalizePort(PORT);
+        }
+
+        else {
+            console.log("No PORT found");
+            console.log("Using default port");
+            var port = normalizePort('3000');
+        }
+
+    }
+
     server.set('port', port);
 
     //Normalize a port into a number, string, or false.
