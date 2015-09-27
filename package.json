@@ -1,6 +1,6 @@
 {
   "name": "ne-server",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "A simple Tool to setup the basic foundation of a NodeJS app FAST",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/node-engine/ne-server#readme",
   "dependencies": {
+    "body-parser": "^1.14.0",
     "debug": "^2.2.0",
     "express": "^4.13.3"
   }
