@@ -1,6 +1,7 @@
 var express = require('express');
 var debug = require('debug')('express:server');
 var path = require('path');
+var bodyParser = require("body-parser");
 
 var neServer = {};
 
@@ -11,6 +12,11 @@ neServer.init = function(PORT){
 
     var server = express();
 
+    // for the rest API post, put requests
+    server.use(bodyParser.json());
+    server.use(bodyParser.raw());
+    server.use(bodyParser.urlencoded({ extended: false }));
+    server.use(bodyParser.text());
 
     if (process.env.PORT) {
         console.log("Using port from process.env.PORT");
@@ -20,8 +26,6 @@ neServer.init = function(PORT){
     else if (!process.env.PORT){
         console.log("No process.env.PORT found");
         console.log("Looking for a PORT");
-
-
 
         if (PORT) {
             console.log("Found PORT");
