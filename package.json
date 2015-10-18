@@ -1,6 +1,6 @@
 {
   "name": "ne-server",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "A simple Tool to setup the basic foundation of a NodeJS app FAST",
   "main": "index.js",
   "scripts": {
@@ -27,9 +27,9 @@
     "express": "^4.13.3",
     "mongoose": "^4.1.11",
     "morgan": "^1.6.1",
-    "ne-auth": "^1.3.0",
-    "ne-data": "^1.8.0",
-    "ne-render": "^1.7.0",
+    "ne-auth": "latest",
+    "ne-data": "latest",
+    "ne-render": "latest",
     "passport": "^0.3.0"
   }
 }
