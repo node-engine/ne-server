@@ -2,6 +2,7 @@ var express = require('express');
 var debug = require('debug')('express:server');
 var path = require('path');
 var bodyParser = require("body-parser");
+var fs = require("fs");
 
 var neServer = {};
 
@@ -111,6 +112,24 @@ neServer.static = function (server, dirName, cacheTime){
     server.use(express.static(path.join(dirName, '/js'),{ maxAge: cacheTime }));
 
 };
+
+neServer.routes = function(server, dirName){
+
+    //Configure routes
+    var dirToRead = dirName + "/routes";
+
+    fs.readdirSync(dirToRead).forEach(function(filename) {
+
+        var requirePath = "../../app/routes/" + filename;
+
+        console.log('neServer: custom route requirePath');
+        console.log(requirePath);
+
+        var setupRoutes = require(requirePath);
+        setupRoutes(server);
+
+    });
+}
 
 
 module.exports = neServer;
