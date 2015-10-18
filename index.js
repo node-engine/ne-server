@@ -123,7 +123,7 @@ neServer.auto = function(server, dirName, serverOptions, appmeta, routes, dataRe
     // Static Assets
     //////////////////////
 
-    var cacheTime = serverOptions.cacheTime
+    var cacheTime = serverOptions.cacheTime;
     this.static(server, dirName, cacheTime);
 
     ///////////////
