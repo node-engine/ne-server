@@ -1,8 +1,14 @@
-var express = require('express');
-var debug = require('debug')('express:server');
 var path = require('path');
-var bodyParser = require("body-parser");
 var fs = require("fs");
+
+if (process.env.NE_AUTO) {
+    var express = require(process.env.NE_AUTO).express;
+    var debug = require(process.env.NE_AUTO).debug;
+}
+else {
+    var express = require('express');
+    var debug = require('debug')('express:server');
+}
 
 var neServer = {};
 
