@@ -1,14 +1,16 @@
 var path = require('path');
 var fs = require("fs");
 
-if (process.env.NE_AUTO) {
-    var express = require(process.env.NE_AUTO).express;
-    var debug = require(process.env.NE_AUTO).debug;
+var neAuto;
+if(process.env.NE_AUTO){
+    neAuto = process.env.NE_AUTO
 }
 else {
-    var express = require('express');
-    var debug = require('debug')('express:server');
+    neAuto = "ne-auto-off"
 }
+
+var express = require(neAuto).express || require('express');
+var debug = require(neAuto).debug('express:server') || require('debug')('express:server');
 
 var neServer = {};
 

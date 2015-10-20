@@ -18,11 +18,22 @@ Dependencies
 - DR Remove Dependency: A  dependency is removed from the package
 - DU Update Dependency: A dependency is updated in the package
 
+
+# 1.8.1
+
+Release date: 20151020
+
+[BF]
+Fixes bugs cuased by 1.8.0
+[DN]
+ne-auto-off
+
 # 1.8.0
 
 Release date: 20151020
 
-All require statements (BF DN)
+[BF][DN]
+All require statements 
 - When using ne-auto the require statements did not find the module
 - Are now conditional to be compatible with ne-auto
 - If there is a process.env.NE_AUTO then the require statements use the ne-auto if not then they require from root
@@ -32,7 +43,6 @@ All require statements (BF DN)
 Removed sample ne-server file
 
 Removed code samples
-
 
 ## 1.7.0
 

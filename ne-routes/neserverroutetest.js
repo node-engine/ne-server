@@ -1,9 +1,12 @@
-if (process.env.NE_AUTO) {
-    var express = require(process.env.NE_AUTO).express
+var neAuto;
+if(process.env.NE_AUTO){
+    neAuto = process.env.NE_AUTO
 }
 else {
-    var express = require('express');
+    neAuto = "ne-auto-off"
 }
+
+var express = require(neAuto).express || require('express');
 
 var router = express.Router();
 
