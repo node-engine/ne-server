@@ -1,6 +1,6 @@
 {
   "name": "ne-server",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "A simple Tool to setup the basic foundation of a NodeJS app FAST",
   "main": "index.js",
   "scripts": {
