@@ -1,16 +1,8 @@
 var path = require('path');
 var fs = require("fs");
 
-var neAuto;
-if(process.env.NE_AUTO){
-    neAuto = process.env.NE_AUTO
-}
-else {
-    neAuto = "ne-auto-off"
-}
-
-var express = require(neAuto).express || require('express');
-var debug = require(neAuto).debug('express:server') || require('debug')('express:server');
+var express = require('express');
+var debug = require('debug')('express:server');
 
 var neServer = {};
 
@@ -122,6 +114,7 @@ neServer.routes = function(server, dirName, optionsObject){
 
     fs.readdirSync(dirToRead).forEach(function(filename) {
 
+        // use the dirToRead with some string manipulation to get the path to routes
         var pathToRoutes = "../../../../app/routes/";
         if (optionsObject && optionsObject.pathToRoutes){
             pathToRoutes = optionsObject.pathToRoutes
