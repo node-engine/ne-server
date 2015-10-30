@@ -102,6 +102,7 @@ neServer.static = function (server, dirName, cacheTime){
 
     server.use(express.static('media',{ maxAge: cacheTime }));
     server.use(express.static(path.join(dirName, '/static'),{ maxAge: cacheTime }));
+    server.use(express.static(path.join(dirName, '/fonts'),{ maxAge: cacheTime }));
     server.use(express.static(path.join(dirName, '/css'),{ maxAge: cacheTime }));
     server.use(express.static(path.join(dirName, '/js'),{ maxAge: cacheTime }));
 

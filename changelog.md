@@ -19,6 +19,13 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+# 1.8.4
+
+Release date: 20151030
+
+[FN]
+/app/fonts is now treated as a static folder
+
 # 1.8.3
 
 Release date: 20151021
