@@ -113,17 +113,6 @@ neServer.routes = function(server, dirName, optionsObject){
     //Configure routes
     var dirToRead = dirName + "/routes";
 
-    console.log(' ');
-    console.log(' ');
-    console.log('neServer routes: ');
-    console.log('dirName + "/routes/"');
-    console.log(dirName + "/routes/");
-    console.log('optionsObject.pathToRoutes');
-    console.log(optionsObject.pathToRoutes);
-    console.log(' ');
-    console.log(' ');
-
-
     fs.readdirSync(dirToRead).forEach(function(filename) {
 
         // use the dirToRead with some string manipulation to get the path to routes
@@ -137,9 +126,6 @@ neServer.routes = function(server, dirName, optionsObject){
          */
 
         var requirePath = dirName + "/routes/" + filename;
-
-        console.log('neServer: custom route requirePath');
-        console.log(requirePath);
 
         var setupRoutes = require(requirePath);
         setupRoutes(server);

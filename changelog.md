@@ -19,6 +19,16 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+# 1.8.5
+
+Release date: NOT Released 
+
+[CO]neServer.routes = function(server, dirName, optionsObject)
+- removed console log statements for the custom routes
+- removed other console log statements
+
+
+
 # 1.8.4
 
 Release date: 20151030
